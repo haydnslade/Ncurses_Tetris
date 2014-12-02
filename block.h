@@ -7,37 +7,7 @@
 #ifndef BLOCK_PIECE
 #define BLOCK_PIECE
 
-const int NUM_BLK_TYPES = 7;
-const int NUM_BLK_ORNT = 4;
-const int BLK_SIZE = 5;
-/*
- * Block definitions, simply use an array of bytes to store the different
- * blocks, and their rotations. Found this idea at http://javilop.com/gamedev/
- */
-char blockTypesAndRotations [NUM_BLK_TYPES][NUM_BLK_ORNT][BLK_SIZE][BLK_SIZE]
-{
-    // Square
-    {
-    }
-    // Line
-    {
-    }
-    // L
-    {
-    }
-    // Backwards L
-    {
-    }
-    // Zigzag
-    {
-    }
-    // Backwards Zigzag
-    {
-    }
-    // T
-    {
-    }
-};
+#include <blockTypes.h>
 
 /*
  * Block

@@ -4,6 +4,9 @@
  * and was written by me (while being influenced by outside sources.)
  */
 
+#ifndef BLOCK_TYPES
+#define BLOCK_TYPES
+
 const int NUM_BLK_TYPES = 7;
 const int NUM_BLK_ORNT = 4;
 const int BLK_SIZE = 5;
@@ -49,3 +52,5 @@ char blockTypesAndRotations [NUM_BLK_TYPES][NUM_BLK_ORNT][BLK_SIZE][BLK_SIZE]
     {
     }
 };
+
+#endif
