@@ -24,7 +24,10 @@ class PlayArea {
         int blocksInPlay[AREA_WIDTH][AREA_HEIGHT];
 
     public:
+        // Constructor
         PlayArea();
+        // Destructor
+        ~PlayArea();
 
         // Is the move valid for the block?
         bool validBlockMove(Block blkMoving, int x, int y);

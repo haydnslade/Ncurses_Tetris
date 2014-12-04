@@ -24,6 +24,18 @@ class Game {
         Window * gameWin;
         
         int currentLevel, currentScore;
+
+    public:
+        Game();
+        ~Game();
+
+        void renderGame();
+        Block * createNewPiece();
+
+    private:
+        void drawBoard();
+        void drawBlock(Block blockToDraw);
+        void drawScore();
 };
 
 #endif

@@ -28,6 +28,8 @@ class Block {
     public:
         // Default constructor
         Block();
+        // Destructor
+        ~Block();
         // Parameterized with type, color, and pos
         Block(int blkType, int blkColor, int startX, int startY);
 
