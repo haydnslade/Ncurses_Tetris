@@ -16,10 +16,8 @@
  */
 class Block {
     private:
-        // Character for a display block
-        static const char blkDispVal = '*';
-        // Array holds the type and orientation of the block
-        int[] blkAndOrnt;
+        // Type and orientation of the block
+        int blkType, blkOrnt;
         // What color to display
         int blkColor;
         // Current position
@@ -33,14 +31,20 @@ class Block {
         // Parameterized with type, color, and pos
         Block(int blkType, int blkColor, int startX, int startY);
 
-        // Move the block specified x & y values
-        void moveBlock(int x, int y);
+        // Move the block specified x value
+        void moveBlockX(int x);
+        // Move the block specified y value
+        void moveBlockY(int y);
         // Get the current block x position
         int getX();
         // Get the current block y position
         int getY();
-        // Get the block type and orientation
-        int[] getBlkTypeOrnt();
+        // Get the block type
+        int getBlockType();
+        // Get the block orientation
+        int getBlockOrient();
+        // Get the block color
+        int getBlockColor();
 };
 
 #endif

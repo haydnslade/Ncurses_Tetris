@@ -36,6 +36,7 @@ class Game {
         void drawBoard();
         void drawBlock(Block blockToDraw);
         void drawScore();
+        int getRandBlocktype();
 };
 
 #endif
