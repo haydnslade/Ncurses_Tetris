@@ -30,7 +30,7 @@ class PlayArea {
         ~PlayArea();
 
         // Is the move valid for the block?
-        bool validBlockMove(Block blkMoving, int x, int y);
+        bool validBlockMove(Block * blkMoving, int x, int y);
         // Get the fill at specific position
         int getFillAtPos(int x, int y);
 
