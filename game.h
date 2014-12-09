@@ -13,7 +13,9 @@
 #include "playArea.h"
 
 /*
- *
+ * Game()
+ * Handles all functions for the game itself, including drawing the board and
+ * pieces on the screen, as well as the main game loop.
  */
 class Game {
     private:
@@ -21,22 +23,24 @@ class Game {
         Block * nextBlk;
         PlayArea * gameArea;
 
-        Window * gameWin;
+        Window * currGameWin;
+        Window * nextGameWin;
         
         int currentLevel, currentScore;
 
     public:
         Game();
+        Game(int startLvl);
         ~Game();
 
-        void renderGame();
-        Block * createNewPiece();
+        void runGame();
+        Block * createNewPiece(int startX, int startY);
 
     private:
         void drawBoard();
-        void drawBlock(Block blockToDraw);
+        void drawBlock(Block * blockToDraw);
         void drawScore();
-        int getRandBlocktype();
+        int getRandBlockType();
 };
 
 #endif

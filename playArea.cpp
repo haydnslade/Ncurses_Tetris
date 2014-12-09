@@ -20,6 +20,10 @@ bool PlayArea::validBlockMove(Block * blkMoving, int x, int y) {
     int blkType = blkMoving->getBlockType();
     int blkOrient = blkMoving->getBlockOrient();
     
+    /* Loop through the block array and the corresponding position in the board
+     * array for the block array. Then check if any filled point in the block
+     * array is outside the board limits or touching a position already filled
+     */
     for (int i = 0, nextXPos = blkNextX; i < BLK_SIZE; i++, nextXPos++) {
         for (int j = 0, nextYPos = blkNextY; j < BLK_SIZE; j++, nextYPos) {
             // Check if the current pos in the block array is outside bounds
@@ -52,6 +56,7 @@ int PlayArea::getFillAtPos(int x, int y) {
 
 int PlayArea::removeFilledLines() {
     int removedLines = 0;
+    // Loop through every row & col, for each row if all cols are filled delete
     for (int i = 0; i < AREA_HEIGHT; i++) {
         int filledBlks = 0;
         for (int j = 0; j < AREA_WIDTH; j++) {
@@ -59,6 +64,7 @@ int PlayArea::removeFilledLines() {
                 filledBlks++;
             }
         }
+        // Check if the current row has every col filled, if so then delete
         if (filledBlks == AREA_WIDTH) {
             removeLine(i);
             removedLines++;
