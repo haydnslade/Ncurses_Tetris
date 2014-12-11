@@ -7,7 +7,7 @@
 #ifndef TETRIS_GAME
 #define TETRIS_GAME
 
-#include <curses.h>
+#include <ncurses.h>
 
 #include "block.h"
 #include "blockTypes.h"
@@ -15,6 +15,9 @@
 
 #define IN_PLAY_BLK 1
 #define FUTURE_BLK 0
+
+const int WINDOW_LINES = 25;
+const int WINDOW_COLS = 50;
 
 /*
  * Game()

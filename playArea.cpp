@@ -90,6 +90,7 @@ void PlayArea::storeBlock(Block * blkToStore) {
             }
         }
     }
+    delete blkToStore;
 }
 
 bool PlayArea::areaFilled(void) {
