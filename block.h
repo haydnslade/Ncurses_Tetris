@@ -7,7 +7,7 @@
 #ifndef BLOCK_PIECE
 #define BLOCK_PIECE
 
-#include "blockTypes.h"
+#include "blockTypes.cpp"
 
 /*
  * Block
@@ -36,15 +36,15 @@ class Block {
         // Move the block specified y value
         void moveBlockY(int y);
         // Get the current block x position
-        int getX();
+        int getX(void);
         // Get the current block y position
-        int getY();
+        int getY(void);
         // Get the block type
-        int getBlockType();
+        int getBlockType(void);
         // Get the block orientation
-        int getBlockOrient();
+        int getBlockOrient(void);
         // Get the block color
-        int getBlockColor();
+        int getBlockColor(void);
 };
 
 #endif

@@ -26,26 +26,26 @@ Game::~Game() {
     delete gameArea;
 }
 
-Game::runGame() {
-
+void Game::runGame(void) {
+    printw("Game Started");
 }
 
 Block * Game::createNewPiece(int startX, int startY) {
 
 }
 
-Game::drawBoard() {
+void Game::drawBoard(void) {
 
 }
 
-Game::drawBlock(Block * blockToDraw) {
+void Game::drawBlock(Block * blockToDraw) {
 
 }
 
-Game::drawScore() {
+void Game::drawScore(void) {
 
 }
 
-int Game:getRandBlockType() {
+int Game:getRandBlockType(void) {
 
 }

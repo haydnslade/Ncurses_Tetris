@@ -32,22 +32,22 @@ void Block::moveBlockY(int y) {
     curY += y;
 }
 
-int Block::getX() {
+int Block::getX(void) {
     return curX;
 }
 
-int Block::getY() {
+int Block::getY(void) {
     return curY;
 }
 
-int Block::getBlockType() {
+int Block::getBlockType(void) {
     return blkType;
 }
 
-int Block::getBlockOrient() {
+int Block::getBlockOrient(void) {
     return blkOrnt;
 }
 
-int Block::getBlockColor() {
+int Block::getBlockColor(void) {
     return blkColor;
 }

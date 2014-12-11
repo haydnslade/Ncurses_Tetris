@@ -23,8 +23,8 @@ class Game {
         Block * nextBlk;
         PlayArea * gameArea;
 
-        Window * currGameWin;
-        Window * nextGameWin;
+        WINDOW * currGameWin;
+        WINDOW * nextGameWin;
         
         int currentLevel, currentScore;
 
@@ -33,14 +33,14 @@ class Game {
         Game(int startLvl);
         ~Game();
 
-        void runGame();
+        void runGame(void);
         Block * createNewPiece(int startX, int startY);
 
     private:
-        void drawBoard();
+        void drawBoard(void);
         void drawBlock(Block * blockToDraw);
-        void drawScore();
-        int getRandBlockType();
+        void drawScore(void);
+        int getRandBlockType(void);
 };
 
 #endif

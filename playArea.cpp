@@ -54,7 +54,7 @@ int PlayArea::getFillAtPos(int x, int y) {
     return blocksInPlay[x][y];
 }
 
-int PlayArea::removeFilledLines() {
+int PlayArea::removeFilledLines(void) {
     int removedLines = 0;
     // Loop through every row & col, for each row if all cols are filled delete
     for (int i = 0; i < AREA_HEIGHT; i++) {
@@ -88,7 +88,7 @@ void PlayArea::storeBlock(Block * blkToStore) {
     }
 }
 
-bool PlayArea::areaFilled() {
+bool PlayArea::areaFilled(void) {
     for (int i = 0; i < AREA_WIDTH; i++) {
         // If any block in top row then game over
         if (blocksInPlay[i][0] != 0) {
@@ -99,7 +99,7 @@ bool PlayArea::areaFilled() {
     return false;
 }
 
-void PlayArea::initArea() {
+void PlayArea::initArea(void) {
     for (int i = 0; i < AREA_HEIGHT; i++) {
         for (int j = 0; j < AREA_WIDTH; j++) {
             blocksInPlay[i][j] = 0;
