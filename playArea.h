@@ -37,7 +37,7 @@ class PlayArea {
         // Remove all filled lines, return number of lines removed
         int removeFilledLines(void);
         // Take a block and store it in the array
-        void storeBlock(Block blkToStore);
+        void storeBlock(Block * blkToStore);
         // Checks if blocks touched the top, aka GAMEOVEr
         bool areaFilled(void);
 

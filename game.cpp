@@ -7,16 +7,16 @@
 Game::Game() {
     currentLevel = 0;
     currentScore = 0;
-    blkInPlay = createNewPiece(?, ?);
-    nextBlk = createNewPiece(?, ?);
+    // blkInPlay = createNewPiece(?, ?);
+    // nextBlk = createNewPiece(?, ?);
     gameArea = new PlayArea;
 }
 
 Game::Game(int startLvl) {
     currentLevel = startLvl;
     currentScore = 0;
-    blkInPlay = createNewPiece(?, ?);
-    nextBlk = createNewPiece(?, ?);
+    // blkInPlay = createNewPiece(?, ?);
+    // nextBlk = createNewPiece(?, ?);
     gameArea = new PlayArea;
 }
 
@@ -28,6 +28,7 @@ Game::~Game() {
 
 void Game::runGame(void) {
     printw("Game Started");
+    refresh();
 }
 
 Block * Game::createNewPiece(int startX, int startY) {
@@ -46,6 +47,6 @@ void Game::drawScore(void) {
 
 }
 
-int Game:getRandBlockType(void) {
+int Game::getRandBlockType(void) {
 
 }

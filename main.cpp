@@ -8,7 +8,7 @@
 #include <string>
 #include <time.h>
 #include "game.h"
-#include "blockTypes.cpp"
+//#include "blockTypes.cpp"
 using namespace std;
  
 int main(void) {

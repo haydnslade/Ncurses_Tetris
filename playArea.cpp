@@ -3,6 +3,7 @@
 
 #include "playArea.h"
 #include <stdlib.h>
+#include "blockTypes.cpp"
 
 PlayArea::PlayArea() {
     initArea();
