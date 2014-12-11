@@ -3,14 +3,17 @@
 
 #include "playArea.h"
 #include <stdlib.h>
-#include "blockTypes.cpp"
 
 PlayArea::PlayArea() {
+    blocksInPlay.resize(AREA_WIDTH);
+    for (int i = 0; i < AREA_WIDTH; i++) {
+        blocksInPlay[i].resize(AREA_HEIGHT);
+    }
+
     initArea();
 }
 
 PlayArea::~PlayArea() {
-
 }
 
 bool PlayArea::validBlockMove(Block * blkMoving, int x, int y) {
@@ -101,8 +104,8 @@ bool PlayArea::areaFilled(void) {
 }
 
 void PlayArea::initArea(void) {
-    for (int i = 0; i < AREA_HEIGHT; i++) {
-        for (int j = 0; j < AREA_WIDTH; j++) {
+    for (int i = 0; i < AREA_WIDTH; i++) {
+        for (int j = 0; j < AREA_HEIGHT; j++) {
             blocksInPlay[i][j] = 0;
         }
     }

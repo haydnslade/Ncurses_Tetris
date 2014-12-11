@@ -10,7 +10,11 @@
 #include <curses.h>
 
 #include "block.h"
+#include "blockTypes.h"
 #include "playArea.h"
+
+#define IN_PLAY_BLK 1
+#define FUTURE_BLK 0
 
 /*
  * Game()
@@ -34,7 +38,7 @@ class Game {
         ~Game();
 
         void runGame(void);
-        Block * createNewPiece(int startX, int startY);
+        Block * createNewPiece(int startX, int startY, int type);
 
     private:
         void drawBoard(void);

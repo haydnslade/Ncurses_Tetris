@@ -7,7 +7,7 @@
 #ifndef BLOCK_PIECE
 #define BLOCK_PIECE
 
-//#include "blockTypes.cpp"
+#include "blockTypes.h"
 
 /*
  * Block

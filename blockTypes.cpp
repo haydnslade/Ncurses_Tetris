@@ -7,16 +7,18 @@
 #ifndef BLOCK_TYPES
 #define BLOCK_TYPES
 
-const int NUM_BLK_TYPES = 7;
-const int NUM_BLK_ORNT = 4;
-const int BLK_SIZE = 5;
-const int DIMENSIONS = 2;
+#include "blockTypes.h"
+
+extern const int NUM_BLK_TYPES;
+extern const int NUM_BLK_ORNT;
+extern const int BLK_SIZE;
+extern const int DIMENSIONS;
 
 /*
  * Block definitions, simply use an array of bytes to store the different
  * blocks, and their rotations. Found this idea at http://javilop.com/gamedev/
  */
-char blockTypesAndRotations [NUM_BLK_TYPES][NUM_BLK_ORNT][BLK_SIZE][BLK_SIZE]
+const char blockTypesAndRotations [NUM_BLK_TYPES][NUM_BLK_ORNT][BLK_SIZE][BLK_SIZE]
 {
     // Square
     {
@@ -238,7 +240,7 @@ char blockTypesAndRotations [NUM_BLK_TYPES][NUM_BLK_ORNT][BLK_SIZE][BLK_SIZE]
 };
 
 /* Holds the offsets for the initial position of the block and orientation */
-int blockStartPos [NUM_BLK_TYPES][NUM_BLK_ORNT][DIMENSIONS]
+const int blockStartPos [NUM_BLK_TYPES][NUM_BLK_ORNT][DIMENSIONS]
 {
 	// Square
 	{
@@ -290,5 +292,7 @@ int blockStartPos [NUM_BLK_TYPES][NUM_BLK_ORNT][DIMENSIONS]
 		{-2, -3}
 	}
 };
+
+const int blockColors [NUM_BLK_TYPES] {4, 1, 5, 3, 6, 7, 2};
 
 #endif

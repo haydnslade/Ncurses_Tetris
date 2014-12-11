@@ -7,7 +7,9 @@
 #ifndef TETRIS_VIEW
 #define TETRIS_VIEW
 
+#include <vector>
 #include "block.h"
+#include "blockTypes.h"
 
 const int AREA_WIDTH = 10;
 const int AREA_HEIGHT = 20;
@@ -21,7 +23,7 @@ const int AREA_HEIGHT = 20;
 class PlayArea {
     private:
         // Array that holds the fallen blocks
-        int blocksInPlay[AREA_WIDTH][AREA_HEIGHT];
+        std::vector< std::vector<int> > blocksInPlay;
 
     public:
         // Constructor
