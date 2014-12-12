@@ -196,7 +196,7 @@ class TetrisField {
   const TetrisBar *getBarFromType(int type) {
     switch (type) {
 #define CASE(n, type) case n: { return TetrisBar::getBar(type); }
-      CASE(0, I);//switch what block they get
+      CASE(0, I);//switch what block they get piece
       CASE(1, J);
       CASE(2, L);
       CASE(3, O);
