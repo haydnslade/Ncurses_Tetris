@@ -8,8 +8,10 @@ TetrisDrawerNcurses::TetrisDrawerNcurses(Tetris *tetris)
   : TetrisDrawer(tetris)
 {
   initscr();
-  init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  init_pair(1, COLOR_RED, COLOR_BLACK);
+  //init_pair(2, COLOR_GREEN, COLOR_GREEN);
   bkgd(COLOR_PAIR(1));
+  //attron(COLOR_PAIR(2)|A_BOLD|A_UNDERLINE);
   curs_set(false);
   noecho();
   refresh();
@@ -61,16 +63,16 @@ void TetrisDrawerNcurses::drawGrid(int x, int y, unsigned value)
 
 void TetrisDrawerNcurses::drawFrameTopOrButtom(int row, int col, int baseCol)
 {
-  drawGrid(row, baseCol, "+");
+  drawGrid(row, baseCol, "+");//left corners
   for (int c = 1; c < col + 1; ++c)
-    drawGrid(row, baseCol + c, "-");
-  drawGrid(row, baseCol + col + 1, "+");
+    drawGrid(row, baseCol + c, "-");//top and bottom
+  drawGrid(row, baseCol + col + 1, "+");//right norders
 }
 
 void TetrisDrawerNcurses::drawFrameInner(int row, int col, int baseCol)
 {
-  drawGrid(row, baseCol, "|");
-  drawGrid(row, baseCol + col + 1, "|");
+  drawGrid(row, baseCol, "|");//walls left
+  drawGrid(row, baseCol + col + 1, "|");//right
 }
 
 void TetrisDrawerNcurses::drawFrame(TetrisField * field, int baseCol)
@@ -118,23 +120,31 @@ void TetrisDrawerNcurses::drawBar(TetrisField *field, int baseCol)
     drawGrid(r, c + 1 + size, field->get##name());  \
   } while (0)
 
+void TetrisDrawerNcurses::drawLevel(TetrisField *field, int baseCol) //mine
+{
+  TETRIS_DRAW(field, Level, 10, 31); //mine where level is displayed
+}
+
 void TetrisDrawerNcurses::drawScore(TetrisField *field, int baseCol)
 {
-  TETRIS_DRAW(field, Score, TETRIS_FIELD_ROW + 3, baseCol);
+  //TETRIS_DRAW(field, Score, TETRIS_FIELD_ROW + 3, baseCol);
+  TETRIS_DRAW(field, Score, 5, 31); //mine where score is displayed
 }
 
 void TetrisDrawerNcurses::drawNextBar(TetrisField *field, int baseCol)
 {
   const TetrisBar *nextBar = field->getNextBar();
   int nextRot = field->getNextBarRot();
-  drawBar(nextBar, nextRot, 2, TETRIS_FIELD_COL + 5 + baseCol);
+  //drawBar(nextBar, nextRot, 2, TETRIS_FIELD_COL + 5 + baseCol);
+  drawBar(nextBar, nextRot, 2, 35);//mine
 }
 
 void TetrisDrawerNcurses::gameover()
 {
   ::erase();
-  drawGrid(10, 3, "Game Over");
+  drawGrid(10, 15, "Game Over");//10 and 15 is row and column
   refresh();
+  sleep(1);// added so you can see message
 }
 
 TetrisInputerNcurses::TetrisInputerNcurses(Tetris *tetris)
@@ -150,12 +160,13 @@ InputType TetrisInputerNcurses::input()
     return INPUT_TYPE_EMPTY;
   switch (ch) {
 #define CASE(key, type) case key: { return type; }
-    CASE(KEY_UP, INPUT_TYPE_UP);
+    //CASE(KEY_UP, INPUT_TYPE_UP); //got rid of up here
     CASE(KEY_DOWN, INPUT_TYPE_DOWN);
     CASE(KEY_RIGHT, INPUT_TYPE_RIGHT);
     CASE(KEY_LEFT, INPUT_TYPE_LEFT);
     CASE('z', INPUT_TYPE_ROT_LEFT);
     CASE('x', INPUT_TYPE_ROT_RIGHT);
+    CASE('q', INPUT_TYPE_QUIT); // added so you can quit
   }
   return INPUT_TYPE_EMPTY;
 }

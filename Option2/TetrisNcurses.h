@@ -13,6 +13,7 @@ class TetrisDrawerNcurses : public TetrisDrawer {
   void drawFrame(TetrisField * field, int baseCol);
   void drawField(TetrisField *field, int baseCol);
   void drawBar(TetrisField *field, int baseCol);
+  void drawLevel(TetrisField *field, int baseCol);
   void drawScore(TetrisField *field, int baseCol);
   void drawNextBar(TetrisField *field, int baseCol);
   void erase() { ::erase(); }
