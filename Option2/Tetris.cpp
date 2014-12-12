@@ -3,6 +3,10 @@
  * @author Hiroo MATSUMOTO <hiroom2.mail@gmail.com>
  */
 #include "Tetris.h"
+#include <unistd.h>
+#include <curses.h>
+
+int speed=500; //make it easy to adjust speed
 
 TetrisBar::TetrisBar(BarType type, const char *str,
                      TetrisIndex rotStart, int rotSize)
@@ -32,7 +36,7 @@ TetrisBar::TetrisBar(BarType type, const char *str,
 
 TetrisField::TetrisField()
   : mRow(TETRIS_FIELD_ROW), mCol(TETRIS_FIELD_COL),
-    mScore(0), mLines(0)
+    mScore(0), mLevel(1), mLines(0)
 {
   clear();
   srand((unsigned) time(NULL));
@@ -144,17 +148,20 @@ void TetrisField::deleteLine()
     }
 
   if (lines) {
-    mScore += lines;
+    //mScore += lines;
+    mScore += lines+10;//mine change scoring
+    mLevel += lines;
     mLines += lines;
   }
 }
 
 void TetrisDrawer::draw(TetrisField *field, int baseCol)
 {
-  drawFrame(field, baseCol);
-  drawField(field, baseCol);
-  drawBar(field, baseCol);
+  drawFrame(field, 15);//MOve things around****
+  drawField(field, 15);
+  drawBar(field, 15);
   drawScore(field, baseCol);
+  drawLevel(field, baseCol);
   drawNextBar(field, baseCol);
 }
 
@@ -187,7 +194,7 @@ void *TetrisTimerPthread::threadFunction(void *data)
     return NULL;
 
   Tetris *tetris = threadData->tetris;
-  int usec = threadData->msec * 1000;
+  int usec = threadData->msec * speed;//speed******
   while (!threadData->stop) {
     usleep (usec);
     if (!tetris->getField()->timer()) {
@@ -215,12 +222,19 @@ bool TetrisTimerPthread::start()
 
 bool TetrisTimerPthread::stop()
 {
-  mData.stop = true;
+  mData.stop = true;//goes here when game ends then to game over in tetrisN
+  /*clear();
+  printw("RADICAL");
+  refresh();
+  sleep(3);// added  */
   return true;
 }
 
-void Tetris::run()
+void Tetris::run(int diff)
 {
+  if(diff==2) {
+    speed=50;
+   }
   InputType inputType;
   mTimer->start();
   while (1) {

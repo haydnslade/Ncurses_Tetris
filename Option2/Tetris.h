@@ -59,16 +59,16 @@ enum BarType {
   BAR_TYPE_Z = 'Z',
 };
 
-enum {
+enum {                // *************8
   TETRIS_BAR_ROW = 4,
   TETRIS_BAR_COL = 4,
   TETRIS_BAR_NR = 7,
   TETRIS_BAR_START_COL = 1,
   TETRIS_BAR_START_ROW = 1,
-  TETRIS_FIELD_ROW = 20,
-  TETRIS_FIELD_COL = 10,
-  TETRIS_FIELD_START_COL = 3,
-  TETRIS_FIELD_START_ROW = TETRIS_BAR_ROW - 1,
+  TETRIS_FIELD_ROW = 20,//size
+  TETRIS_FIELD_COL = 10,//size
+  TETRIS_FIELD_START_COL = 4,//where new block starts
+  TETRIS_FIELD_START_ROW = TETRIS_BAR_ROW - 2,//where new block starts
 };
 
 enum InputType {
@@ -151,6 +151,7 @@ class TetrisField {
   int mBarRot;
 
   unsigned mScore;
+  unsigned mLevel;
   unsigned mLines;
 
  public:
@@ -195,7 +196,7 @@ class TetrisField {
   const TetrisBar *getBarFromType(int type) {
     switch (type) {
 #define CASE(n, type) case n: { return TetrisBar::getBar(type); }
-      CASE(0, I);
+      CASE(0, I);//switch what block they get
       CASE(1, J);
       CASE(2, L);
       CASE(3, O);
@@ -257,9 +258,11 @@ class TetrisField {
   }
 
   unsigned getScore() { return mScore; }
+  unsigned getLevel() { return mLevel; }
   unsigned getLines() { return mLines; }
 
   void setScore(int score) { mScore = score; }
+  void setLevel(int level) { mLevel = level; }
   void setLines(int lines) { mLines = lines; }
 };
 
@@ -273,6 +276,7 @@ class TetrisDrawer {
   virtual void drawField(TetrisField *field, int baseCol) = 0;
   virtual void drawBar(TetrisField *field, int baseCol) = 0;
   virtual void drawScore(TetrisField *field, int baseCol) = 0;
+  virtual void drawLevel(TetrisField *field, int baseCol) = 0;
   virtual void drawNextBar(TetrisField *field, int baseCol) = 0;
   virtual void erase() = 0;
   virtual void update() = 0;
@@ -311,7 +315,7 @@ class TetrisTimer {
   virtual bool isInterrupted() = 0;
 };
 
-#define TIMER_INTERVAL_MSEC (500)
+#define TIMER_INTERVAL_MSEC (500) //speed aswell
 
 struct ThreadData {
 public:
@@ -362,7 +366,7 @@ class Tetris {
   void registerTimer(TetrisTimer *timer) { mTimer = timer; }
 
  public:
-  void run();
+  void run(int diff);
   TetrisField *getField() { return mField; }
 };
 
