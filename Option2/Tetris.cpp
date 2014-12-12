@@ -232,9 +232,12 @@ bool TetrisTimerPthread::stop()
 
 void Tetris::run(int diff)
 {
-  if(diff==2) {
-    speed=50;
+  if (diff==2) {
+    speed=350;
    }
+  else if (diff==3) {
+    speed=50;
+  }
   InputType inputType;
   mTimer->start();
   while (1) {
