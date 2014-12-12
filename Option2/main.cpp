@@ -12,9 +12,11 @@ using namespace std;
  
 int main(void) {
   int row,col;
+  char input;
   initscr();
   getmaxyx(stdscr,row,col);//get screen size
   start_color();//start color mode
+  do {
   init_pair(1, COLOR_GREEN, COLOR_RED);
   init_pair(2, COLOR_BLUE, COLOR_BLACK);
   init_pair(3, COLOR_GREEN, COLOR_BLACK);
@@ -39,7 +41,6 @@ int main(void) {
   string selection="Please Select your game:";
   string error="Please eneter a # 1-3 or q to quite.";
   mvprintw(18,(col/2)-(selection.length()/2),"%s",selection.c_str());
-  char input;  
   while((input=getch())!='q')
   {
     switch(input) {
@@ -48,15 +49,28 @@ int main(void) {
       case '3':clear();printw("Game start lvl 55");getch();break;
       default:mvprintw(20,(col/2)-(selection.length()/2),"Enter 1,2,3 or q to quite"); move(18,(col/2)+(selection.length()/2));break;
     }
-    if(input=='1'||input=='2'||input=='3') {
+    if(input=='1'||input=='2') {
       /*clear();
       printw("Rad");
       refresh();
       sleep(3);*/
-      TetrisNcurses().run();
+      TetrisNcurses().run(1);
+      break;
+    }
+    else {
+      TetrisNcurses().run(2);
       break;
     }
   }
+  curs_set(true);
+  keypad(stdscr, false);
+  nodelay(stdscr, false);
+  clear();
+  standend();
+  mvprintw(20,(col/2)-(selection.length()/2),"Again?");
+  refresh();
+
+  }while((input=getch())!='n');
   
   
   refresh();
