@@ -46,9 +46,9 @@ int main(void) {
   while((input=getch())!='q')
   {
     switch(input) {
-      case '1':clear();printw("Game start lvl 1");getch();break;
-      case '2':clear();printw("Game start lvl 5");getch();break;
-      case '3':clear();printw("Game start lvl 55");getch();break;
+      case '1':clear();printw("Slow Speed!\nStart in 1...");refresh();sleep(1);break;
+      case '2':clear();printw("Medium Speed!\nStart in 1...");refresh();sleep(1);break;
+      case '3':clear();printw("Insane Speed!\nStart in 1...");refresh();sleep(1);break;
       default:mvprintw(20,(col/2)-(selection.length()/2),"Enter 1,2,3 or q to quite"); move(18,(col/2)+(selection.length()/2));break;
     }
     if(input=='1'||input=='2'||input=='3') {

@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <curses.h>
 
-int speed=500; //make it easy to adjust speed
+int speed=600; //make it easy to adjust speed
 
 TetrisBar::TetrisBar(BarType type, const char *str,
                      TetrisIndex rotStart, int rotSize)
@@ -226,12 +226,16 @@ bool TetrisTimerPthread::stop()
   /*clear();
   printw("RADICAL");
   refresh();
-  sleep(3);// added  */
+  sleep(3);// added  */  
+  pthread_join(mThread, 0);//to kill thread
   return true;
 }
 
 void Tetris::run(int diff)
 {
+  if (diff==1) {
+    speed=600;
+   }
   if (diff==2) {
     speed=350;
    }
