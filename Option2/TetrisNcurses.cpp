@@ -9,9 +9,7 @@ TetrisDrawerNcurses::TetrisDrawerNcurses(Tetris *tetris)
 {
   initscr();
   init_pair(1, COLOR_RED, COLOR_BLACK);
-  //init_pair(2, COLOR_GREEN, COLOR_GREEN);
   bkgd(COLOR_PAIR(1));
-  //attron(COLOR_PAIR(2)|A_BOLD|A_UNDERLINE);
   curs_set(false);
   noecho();
   refresh();
@@ -145,6 +143,11 @@ void TetrisDrawerNcurses::gameover()
   drawGrid(10, 15, "Game Over");//10 and 15 is row and column
   refresh();
   sleep(1);// added so you can see message
+  curs_set(true);
+  keypad(stdscr, false);
+  nodelay(stdscr, false);
+  standend();
+  endwin();
 }
 
 TetrisInputerNcurses::TetrisInputerNcurses(Tetris *tetris)

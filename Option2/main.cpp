@@ -21,6 +21,8 @@ int main(void) {
   init_pair(2, COLOR_BLUE, COLOR_BLACK);
   init_pair(3, COLOR_GREEN, COLOR_BLACK);
   init_pair(4, COLOR_RED, COLOR_BLACK);
+  init_pair(5, COLOR_WHITE, COLOR_BLACK);
+  bkgd(COLOR_PAIR(5));
 	attron(COLOR_PAIR(1)|A_BOLD|A_UNDERLINE);
   string title="Tetris";
   string option1="1.Easy:Slow/Boring";
@@ -62,12 +64,10 @@ int main(void) {
       break;
     }
   }
-  curs_set(true);
-  keypad(stdscr, false);
-  nodelay(stdscr, false);
   clear();
-  standend();
-  mvprintw(20,(col/2)-(selection.length()/2),"Again?");
+  standend();  
+  bkgd(COLOR_PAIR(5));
+  mvprintw(row/2,col/2,"Again?");
   refresh();
 
   }while((input=getch())!='n');
