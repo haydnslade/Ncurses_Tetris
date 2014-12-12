@@ -16,20 +16,19 @@ PlayArea::PlayArea() {
 PlayArea::~PlayArea() {
 }
 
-bool PlayArea::validBlockMove(Block * blkMoving, int x, int y) {
+bool PlayArea::validBlockMove(Block * blkMoving, int x, int y, int blkOrient) {
     int blkCurX = blkMoving->getX();
     int blkCurY = blkMoving->getY();
     int blkNextX = blkCurX + x;
     int blkNextY = blkCurY + y;
     int blkType = blkMoving->getBlockType();
-    int blkOrient = blkMoving->getBlockOrient();
     
     /* Loop through the block array and the corresponding position in the board
      * array for the block array. Then check if any filled point in the block
      * array is outside the board limits or touching a position already filled
      */
     for (int i = 0, nextXPos = blkNextX; i < BLK_SIZE; i++, nextXPos++) {
-        for (int j = 0, nextYPos = blkNextY; j < BLK_SIZE; j++, nextYPos) {
+        for (int j = 0, nextYPos = blkNextY; j < BLK_SIZE; j++, nextYPos++) {
             // Check if the current pos in the block array is outside bounds
             if (nextXPos < 0 || nextXPos > AREA_WIDTH - 1
                     || nextYPos > AREA_HEIGHT - 1) {
@@ -52,6 +51,11 @@ bool PlayArea::validBlockMove(Block * blkMoving, int x, int y) {
 
     // Not outside bounds & no collision
     return true;
+}
+
+bool PlayArea::validBlockMove(Block * blkMoving, int x, int y) {
+    int blkOrient = blkMoving->getBlockOrient();
+    return validBlockMove(blkMoving, x, y, blkOrient);
 }
 
 int PlayArea::getFillAtPos(int x, int y) {

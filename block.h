@@ -35,6 +35,8 @@ class Block {
         void moveBlockX(int x);
         // Move the block specified y value
         void moveBlockY(int y);
+        // Rotate the block to the next position
+        void rotateBlock(void);
         // Get the current block x position
         int getX(void);
         // Get the current block y position

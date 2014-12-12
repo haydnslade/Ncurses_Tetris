@@ -18,6 +18,9 @@
 
 const int WINDOW_LINES = 25;
 const int WINDOW_COLS = 50;
+const int WAIT_TIME = 750;
+const int LEFT_OFFSET = 5;
+const int TOP_OFFSET = 5;
 
 /*
  * Game()
@@ -30,8 +33,7 @@ class Game {
         Block * nextBlk;
         PlayArea * gameArea;
 
-        WINDOW * currGameWin;
-        WINDOW * nextGameWin;
+        WINDOW * gameWin;
         
         int currentLevel, currentScore;
 
@@ -47,6 +49,7 @@ class Game {
         void drawBoard(void);
         void drawBlock(Block * blockToDraw);
         void drawScore(void);
+        void endGame(void);
         int getRandBlockType(void);
 };
 

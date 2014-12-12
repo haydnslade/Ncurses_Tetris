@@ -32,6 +32,10 @@ void Block::moveBlockY(int y) {
     curY += y;
 }
 
+void Block::rotateBlock(void) {
+    blkOrnt = ((blkOrnt + 1) % NUM_BLK_ORNT);
+}
+
 int Block::getX(void) {
     return curX;
 }
