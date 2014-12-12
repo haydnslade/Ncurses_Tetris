@@ -69,11 +69,13 @@ int main(void) {
   bkgd(COLOR_PAIR(5));
   mvprintw(row/2,col/2,"Again?");
   refresh();
+  if (input=='q')
+    break;
 
   }while((input=getch())!='n');
   
-  
+  mvprintw(row/2,col/2,"Have a Nice Day");
   refresh();
-  //getch(); // pauses screen
+  sleep(1);
   endwin();
 }
