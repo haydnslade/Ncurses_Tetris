@@ -11,6 +11,7 @@ Game::Game() {
     srand(time(NULL));
     currentLevel = 0;
     currentScore = 0;
+    linesRemoved = 0;
     blkInPlay = createNewPiece(((AREA_WIDTH + 1) / 2) , 0, IN_PLAY_BLK);
     nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
     gameArea = new PlayArea();
@@ -20,6 +21,7 @@ Game::Game(int startLvl) {
     srand(time(NULL));
     currentLevel = startLvl;
     currentScore = 0;
+    linesRemoved = 0;
     blkInPlay = createNewPiece(((AREA_WIDTH + 1) / 2) , 0, IN_PLAY_BLK);
     nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
     gameArea = new PlayArea();
@@ -76,9 +78,13 @@ void Game::runGame(void) {
                 }
                 
                 gameArea->storeBlock(blkInPlay);
-                currentScore += (gameArea->removeFilledLines()) * 10 * currentLevel;
-
-                currentLevel = (currentScore / 50) + 1;
+                int lines = gameArea->removeFilledLines();
+                currentScore += lines * 10 * currentLevel;
+                linesRemoved += lines;
+                if (linesRemoved >= 5) {
+                    currentLevel++;
+                    linesRemoved = 0;
+                }
                 
                 if (gameArea->areaFilled()) {
                     endGame();
@@ -106,9 +112,13 @@ void Game::runGame(void) {
                 blkInPlay->moveBlockY(1);
             } else {
                 gameArea->storeBlock(blkInPlay);
-                currentScore += (gameArea->removeFilledLines()) * 10 * currentLevel;
-
-                currentLevel = (currentScore / 50) + 1;
+                int lines = gameArea->removeFilledLines();
+                currentScore += lines * 10 * currentLevel;
+                linesRemoved += lines;
+                if (linesRemoved >= 5) {
+                    currentLevel++;
+                    linesRemoved = 0;
+                }
 
                 if (gameArea->areaFilled()) {
                     endGame();

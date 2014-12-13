@@ -45,17 +45,29 @@ int main(void) {
   string selection="Please Select your game:";
   string error="Please eneter a # 1-3 or q to quite.";
   mvprintw(18,(col/2)-(selection.length()/2),"%s",selection.c_str());
-  char input;  
+  char input;
+  Game * newGame;
   while((input=getch())!='q')
   {
     switch(input) {
-      case '1':clear();printw("Game start lvl 1");getch();break;
-      case '2':clear();printw("Game start lvl 5");getch();break;
-      case '3':clear();printw("Game start lvl 55");getch();break;
-      default:mvprintw(20,(col/2)-(selection.length()/2),"Enter 1,2,3 or q to quite"); move(18,(col/2)+(selection.length()/2));break;
+      case '1':
+        clear();
+        newGame = new Game(1);
+        break;
+      case '2':
+        clear();
+        newGame = new Game(25);
+        break;
+      case '3':
+        clear();
+        newGame = new Game(50);
+        break;
+      default:
+        mvprintw(20,(col/2)-(selection.length()/2),"Enter 1,2,3 or q to quite");
+        move(18,(col/2)+(selection.length()/2));
+        break;
     }
     if(input=='1'||input=='2'||input=='3') {
-        Game * newGame = new Game(1);
         newGame->runGame();
       break;
     }

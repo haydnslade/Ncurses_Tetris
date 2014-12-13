@@ -35,7 +35,7 @@ class Game {
 
         WINDOW * gameWin;
         
-        int currentLevel, currentScore;
+        int currentLevel, currentScore, linesRemoved;
 
     public:
         Game();
