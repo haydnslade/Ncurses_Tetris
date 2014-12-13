@@ -79,9 +79,9 @@ void Game::runGame(void) {
                 
                 gameArea->storeBlock(blkInPlay);
                 int lines = gameArea->removeFilledLines();
-                currentScore += lines * 10 * currentLevel;
+                currentScore += lines * SCORE_MOD * currentLevel;
                 linesRemoved += lines;
-                if (linesRemoved >= 5) {
+                if (linesRemoved >= LINES_P_LVL) {
                     currentLevel++;
                     linesRemoved = 0;
                 }
@@ -107,15 +107,15 @@ void Game::runGame(void) {
         clock_t elapsedTicks = (end - start);
         double elapsedSecs = elapsedTicks / (double) CLOCKS_PER_SEC;
         
-        if ((elapsedSecs * 1000) >= (WAIT_TIME - (currentLevel * 25))) {
+        if ((elapsedSecs * MILLI_SEC) >= (WAIT_TIME - (currentLevel * TIME_MOD))) {
             if (gameArea->validBlockMove(blkInPlay, 0, 1)) {
                 blkInPlay->moveBlockY(1);
             } else {
                 gameArea->storeBlock(blkInPlay);
                 int lines = gameArea->removeFilledLines();
-                currentScore += lines * 10 * currentLevel;
+                currentScore += lines * SCORE_MOD * currentLevel;
                 linesRemoved += lines;
-                if (linesRemoved >= 5) {
+                if (linesRemoved >= LINES_P_LVL) {
                     currentLevel++;
                     linesRemoved = 0;
                 }
@@ -165,9 +165,9 @@ void Game::drawBoard(void) {
     for (int y = 0; y < AREA_HEIGHT; y++) {
         for (int x = 0; x < AREA_WIDTH; x++) {
             int boardFill = gameArea->getFillAtPos(x, y);
-            wattron(gameWin, COLOR_PAIR(boardFill + 10));
+            wattron(gameWin, COLOR_PAIR(boardFill + CLR_PAIR_OFFSET));
             mvwaddch(gameWin, y + TOP_OFFSET, x + LEFT_OFFSET, '*');
-            wattroff(gameWin, COLOR_PAIR(boardFill + 10));
+            wattroff(gameWin, COLOR_PAIR(boardFill + CLR_PAIR_OFFSET));
         }
     }
 }
@@ -182,10 +182,10 @@ void Game::drawBlock(Block * blockToDraw) {
     for (int y = 0; y < BLK_SIZE; y++) {
         for (int x = 0; x < BLK_SIZE; x++) {
             if (blockTypesAndRotations[blkType][blkOrient][x][y] != 0) {
-                init_pair(blkColor + 10, blkColor, blkColor);
-                wattron(gameWin, COLOR_PAIR(blkColor + 10));
+                init_pair(blkColor + CLR_PAIR_OFFSET, blkColor, blkColor);
+                wattron(gameWin, COLOR_PAIR(blkColor + CLR_PAIR_OFFSET));
                 mvwaddch(gameWin, blkY + y + TOP_OFFSET, blkX + x + LEFT_OFFSET, '*');
-                wattroff(gameWin, COLOR_PAIR(blkColor + 10));
+                wattroff(gameWin, COLOR_PAIR(blkColor + CLR_PAIR_OFFSET));
             }
         }
     }

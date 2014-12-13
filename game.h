@@ -21,6 +21,11 @@ const int WINDOW_COLS = 50;
 const int WAIT_TIME = 750;
 const int LEFT_OFFSET = 5;
 const int TOP_OFFSET = 5;
+const int SCORE_MOD = 10;
+const int LINES_P_LVL = 5;
+const int MILLI_SEC = 1000;
+const int TIME_MOD = 25;
+const int CLR_PAIR_OFFSET = 10;
 
 /*
  * Game()

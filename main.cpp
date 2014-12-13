@@ -12,6 +12,10 @@
 #include "game.h"
 using namespace std;
 
+const int EASY_GAME = 1;
+const int MED_GAME = 25;
+const int HARD_GAME = 50;
+
 /* Signal handler for proper exit */
 void exitProper(int sigNum);
  
@@ -52,15 +56,15 @@ int main(void) {
     switch(input) {
       case '1':
         clear();
-        newGame = new Game(1);
+        newGame = new Game(EASY_GAME);
         break;
       case '2':
         clear();
-        newGame = new Game(25);
+        newGame = new Game(MED_GAME);
         break;
       case '3':
         clear();
-        newGame = new Game(50);
+        newGame = new Game(HARD_GAME);
         break;
       default:
         mvprintw(20,(col/2)-(selection.length()/2),"Enter 1,2,3 or q to quite");
