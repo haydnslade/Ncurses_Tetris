@@ -38,6 +38,7 @@ void Game::runGame(void) {
     getmaxyx(stdscr, screenX, screenY);
     gameWin = newwin(screenX, screenY, 0, 0);
     curs_set(0);
+    noecho();
     nodelay(stdscr, true);
     keypad(stdscr, true);
     // Initialize clock to handle when to move down
@@ -101,6 +102,10 @@ void Game::runGame(void) {
 
                 nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
                 break;
+            }
+            case 'q': {
+                endGame();
+                return;
             }
         }
         clock_t end = clock();

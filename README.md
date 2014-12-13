@@ -3,7 +3,7 @@ Ncurses_Tetris
 
 Implementation of Tetris using NCURSES for GUI
 
-Haydn Slade id#
+Haydn Slade 10449382
 
 Joseph Myrer 10448356
 
@@ -16,11 +16,17 @@ time we decided to work together Haydn had already built this repository so
  completed and running game with menu different difficulties and ask you to keep playing. I feel like we both equally contributed and gave good ideas to
  one another on this project.
 
+-Haydn's Comments
+As noted by Joseph above we only started working together after we both had implementations started.
+The main section is a slightly different implementation missing some of the better menu accroutements.
+
 Option2/app- Keys left, right, and down arrows to move it left, right and down. 
 ‘q’ is to quite the game while it is running. And at the play again screen.
  ‘n’=no and it will exit game and and any other key means you want to play again. 
 
-Main folder/tetris-
+Main folder/tetris- Keys left, right to move left and right.
+    Down causes the block to drop in place
+    Up rotates the block
+    'q' ends the game
 
-Quick note to end on run the game in Option2 first ha.
-
+Quick note to end on run the game in Option2 first.
