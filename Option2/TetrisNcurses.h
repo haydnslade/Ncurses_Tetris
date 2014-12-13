@@ -1,6 +1,5 @@
 /**
- * @file TetrisNcurses.h
- * @author Hiroo MATSUMOTO <hiroom2.mail@gmail.com>
+ *
  */
 #ifndef __TETRISNCURSES_H
 #define __TETRISNCURSES_H

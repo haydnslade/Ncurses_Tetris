@@ -1,6 +1,5 @@
 /**
- * @file Tetris.h
- * @author Hiroo MATSUMOTO <hiroom2.mail@gmail.com>
+ *
  */
 #ifndef __TETRIS_H
 #define __TETRIS_H
