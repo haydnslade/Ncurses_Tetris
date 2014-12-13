@@ -15,6 +15,14 @@ TetrisDrawerNcurses::TetrisDrawerNcurses(Tetris *tetris)
   refresh();
   keypad(stdscr, true);
   nodelay(stdscr, true);
+  //Colors for blocks
+  init_pair(11, COLOR_RED, COLOR_RED);
+  init_pair(12, COLOR_GREEN, COLOR_GREEN);
+  init_pair(13, COLOR_YELLOW, COLOR_YELLOW);
+  init_pair(14, COLOR_BLUE, COLOR_BLUE);
+  init_pair(15, COLOR_MAGENTA, COLOR_MAGENTA);
+  init_pair(16, COLOR_CYAN, COLOR_CYAN);
+  init_pair(17, COLOR_WHITE, COLOR_WHITE);
 }
 
 TetrisDrawerNcurses::~TetrisDrawerNcurses()
@@ -36,7 +44,31 @@ void TetrisDrawerNcurses::drawGrid(int x, int y, const char dot)
 
 void TetrisDrawerNcurses::drawGrid(int x, int y, BarType type)
 {
+  switch(type) {
+    case BAR_TYPE_I:
+        attron(COLOR_PAIR(11));
+        break;
+    case BAR_TYPE_J:
+        attron(COLOR_PAIR(12));
+        break;
+    case BAR_TYPE_L:
+        attron(COLOR_PAIR(13));
+        break;
+    case BAR_TYPE_O:
+        attron(COLOR_PAIR(14));
+        break;
+    case BAR_TYPE_S:
+        attron(COLOR_PAIR(15));
+        break;
+    case BAR_TYPE_T:
+        attron(COLOR_PAIR(16));
+        break;
+    case BAR_TYPE_Z:
+        attron(COLOR_PAIR(17));
+        break;
+  }  
   drawGrid(x, y, (char) type);
+  attron(COLOR_PAIR(1));
 }
 
 void TetrisDrawerNcurses::drawGrid(int x, int y, unsigned value)
