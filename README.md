@@ -4,7 +4,9 @@ Ncurses_Tetris
 Implementation of Tetris using NCURSES for GUI
 
 Haydn Slade id#
+
 Joseph Myrer 10448356
+
 So you’ll see two games of tetris in this repo, and that is because we both
  had gotten started on tetris games before we started collaborating. By the 
 time we decided to work together Haydn had already built this repository so
