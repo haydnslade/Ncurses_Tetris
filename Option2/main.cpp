@@ -1,4 +1,4 @@
-/* Copyright 2014
+/* Copyright 2014 Joseph Myrer and Haydn Slade 
  */
 
 #include <stdlib.h>

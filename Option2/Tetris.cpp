@@ -1,6 +1,4 @@
 /**
- * @file Tetris.cpp
- * @author Hiroo MATSUMOTO <hiroom2.mail@gmail.com>
  */
 #include "Tetris.h"
 #include <unistd.h>
