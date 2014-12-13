@@ -8,18 +8,20 @@
 #include <curses.h>
 
 Game::Game() {
+    srand(time(NULL));
     currentLevel = 0;
     currentScore = 0;
     blkInPlay = createNewPiece(((AREA_WIDTH + 1) / 2) , 0, IN_PLAY_BLK);
-    nextBlk = createNewPiece(AREA_WIDTH + 6, 0, FUTURE_BLK);
+    nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
     gameArea = new PlayArea();
 }
 
 Game::Game(int startLvl) {
+    srand(time(NULL));
     currentLevel = startLvl;
     currentScore = 0;
     blkInPlay = createNewPiece(((AREA_WIDTH + 1) / 2) , 0, IN_PLAY_BLK);
-    nextBlk = createNewPiece(AREA_WIDTH + 6, 0, FUTURE_BLK);
+    nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
     gameArea = new PlayArea();
 }
 
@@ -31,33 +33,22 @@ Game::~Game() {
 
 void Game::runGame(void) {
     int screenX, screenY;
-    srand(time(NULL));
     getmaxyx(stdscr, screenX, screenY);
     gameWin = newwin(screenX, screenY, 0, 0);
     curs_set(0);
     nodelay(stdscr, true);
     keypad(stdscr, true);
-    //clearok(gameWin, true);
+    // Initialize clock to handle when to move down
+    clock_t start = clock();
     while (1) {
         //usleep(WAIT_TIME * 10);
         //nextGameWin = newwin(screenX, screenY, 0, 0);
         werase(gameWin);
+        // Draw the board, blocks, and score
         drawBoard();
         drawBlock(blkInPlay);
         drawBlock(nextBlk);
-        /* create a temp window for the now outdated window
-         * then erase the outdated (currently showing) refresh and delete
-         * then refresh the screen with the now updated window state in next
-         */
-        /*WINDOW * oldWin = currGameWin;
-        currGameWin = nextGameWin;
-        werase(oldWin);
-        wrefresh(oldWin);
-        delwin(oldWin);
-        wrefresh(currGameWin);
-        nodelay(currGameWin, true);
-        keypad(currGameWin, true);
-        */
+        drawScore();
         wrefresh(gameWin);
         /* Get the input from user, if there is any */
         int in = getch();
@@ -86,10 +77,12 @@ void Game::runGame(void) {
                 
                 gameArea->storeBlock(blkInPlay);
                 currentScore += (gameArea->removeFilledLines()) * 10 * currentLevel;
+
+                currentLevel = (currentScore / 50) + 1;
                 
                 if (gameArea->areaFilled()) {
-                    getch();
-                    exit(0);
+                    endGame();
+                    return;
                 }
 
                 blkInPlay = nextBlk;
@@ -100,11 +93,39 @@ void Game::runGame(void) {
                 blkInPlay->moveBlockY(-(blkInPlay->getY())
                     + blockStartPos[blkInPlay->getBlockType()][0][1]);
 
-                nextBlk = createNewPiece(AREA_WIDTH + 6, 0, FUTURE_BLK);
+                nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
                 break;
             }
         }
+        clock_t end = clock();
+        clock_t elapsedTicks = (end - start);
+        double elapsedSecs = elapsedTicks / (double) CLOCKS_PER_SEC;
         
+        if ((elapsedSecs * 1000) >= (WAIT_TIME - (currentLevel * 25))) {
+            if (gameArea->validBlockMove(blkInPlay, 0, 1)) {
+                blkInPlay->moveBlockY(1);
+            } else {
+                gameArea->storeBlock(blkInPlay);
+                currentScore += (gameArea->removeFilledLines()) * 10 * currentLevel;
+
+                currentLevel = (currentScore / 50) + 1;
+
+                if (gameArea->areaFilled()) {
+                    endGame();
+                    return;
+                }
+
+                blkInPlay = nextBlk;
+                blkInPlay->moveBlockX(-(blkInPlay->getX())
+                    + ((AREA_WIDTH + 1) / 2)
+                    + blockStartPos[blkInPlay->getBlockType()][0][0]);
+                blkInPlay->moveBlockY(-(blkInPlay->getY())
+                    + blockStartPos[blkInPlay->getBlockType()][0][1]);
+
+                nextBlk = createNewPiece(AREA_WIDTH + 1, 0, FUTURE_BLK);
+            }
+            start = clock();
+        } 
     }
 }
 
@@ -124,32 +145,11 @@ Block * Game::createNewPiece(int startX, int startY, int type) {
 }
 
 void Game::drawBoard(void) {
-    int midScreen = LINES / 3;
-    int lBound = midScreen - AREA_WIDTH - 1;
-    int rBound = midScreen + AREA_WIDTH + 1;
-    int bBound = AREA_HEIGHT + 1;
-    /*
-    for (int y = 0; y < AREA_HEIGHT + 1; y++) {
-        for (int x = 0; x < AREA_WIDTH + 2; x++) {
-            if (x == 0 || x == AREA_WIDTH + 1) {
-                mvwaddch(nextGameWin, y, x, '|');
-            } else if (y == AREA_HEIGHT) {
-                mvwaddch(nextGameWin, y, x, '_');
-            } else {
-                int boardFill = gameArea->getFillAtPos(x - 1, y);
-                init_pair(boardFill + 10, boardFill, boardFill);
-                wattron(nextGameWin, COLOR_PAIR(boardFill + 10));
-                mvwaddch(nextGameWin, y, x, '*');
-                wattroff(nextGameWin, COLOR_PAIR(boardFill + 10));
-            }
-        }
-    }
-    */
     // Print the border
-    mvwhline(gameWin, TOP_OFFSET - 1, LEFT_OFFSET, '=', AREA_WIDTH + 1);
-    mvwhline(gameWin, TOP_OFFSET + AREA_HEIGHT, LEFT_OFFSET, '=', AREA_WIDTH + 1);
+    mvwhline(gameWin, TOP_OFFSET - 1, LEFT_OFFSET, '=', AREA_WIDTH);
+    mvwhline(gameWin, TOP_OFFSET + AREA_HEIGHT, LEFT_OFFSET, '=', AREA_WIDTH);
     mvwvline(gameWin, TOP_OFFSET - 1, LEFT_OFFSET - 1, '|', AREA_HEIGHT + 2);
-    mvwvline(gameWin, TOP_OFFSET - 1, LEFT_OFFSET + AREA_WIDTH + 1, '|', AREA_HEIGHT + 2);
+    mvwvline(gameWin, TOP_OFFSET - 1, LEFT_OFFSET + AREA_WIDTH, '|', AREA_HEIGHT + 2);
 
     // Print board
     for (int y = 0; y < AREA_HEIGHT; y++) {
@@ -182,11 +182,22 @@ void Game::drawBlock(Block * blockToDraw) {
 }
 
 void Game::drawScore(void) {
-    int midScreen = LINES / 3;
+    mvwhline(gameWin, TOP_OFFSET + BLK_SIZE, LEFT_OFFSET + AREA_WIDTH + 1, '=', BLK_SIZE);
+    mvwvline(gameWin, TOP_OFFSET - 1, LEFT_OFFSET + AREA_WIDTH + BLK_SIZE, '|', BLK_SIZE + 1);
+    mvwprintw(gameWin, TOP_OFFSET + BLK_SIZE + 2, LEFT_OFFSET + AREA_WIDTH + 1, "Level: %d", currentLevel);
+    mvwprintw(gameWin, TOP_OFFSET + BLK_SIZE + 3, LEFT_OFFSET + AREA_WIDTH + 1, "Score: %d", currentScore);
 }
 
 void Game::endGame(void) {
-    
+    curs_set(1);
+    echo();
+    nodelay(stdscr, false);
+    mvwaddstr(gameWin, TOP_OFFSET + (AREA_HEIGHT / 2), LEFT_OFFSET, "GAME OVER");
+    wrefresh(gameWin);
+    getch();
+    werase(gameWin);
+    wrefresh(gameWin);
+    delwin(gameWin);
 }
 
 int Game::getRandBlockType(void) {

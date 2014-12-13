@@ -7,12 +7,18 @@
 #include <curses.h>
 #include <string>
 #include <time.h>
+#include <signal.h>
+#include <sys/types.h>
 #include "game.h"
 using namespace std;
+
+/* Signal handler for proper exit */
+void exitProper(int sigNum);
  
 int main(void) {
   int row,col;
   initscr();
+  signal(SIGINT, exitProper);
   getmaxyx(stdscr,row,col);//get screen size
   start_color();//start color mode
   init_pair(1, COLOR_GREEN, COLOR_RED);
@@ -59,4 +65,9 @@ int main(void) {
   refresh();
   //getch(); // pauses screen
   endwin();
+}
+
+void exitProper(int sigNum) {
+    endwin();
+    exit(sigNum);
 }

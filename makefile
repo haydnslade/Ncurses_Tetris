@@ -10,7 +10,7 @@ compile:
 	g++ -c block.cpp -std=c++11
 	g++ -c blockTypes.cpp -std=c++11
 
-link: compile
+link:compile
 	g++ -o tetris main.o game.o playArea.o block.o blockTypes.o -lncurses
 
 clean:
