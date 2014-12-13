@@ -20,3 +20,5 @@ Option2/app- Keys left, right, and down arrows to move it left, right and down.
 
 Main folder/tetris-
 
+Quick note to end on run the game in Option2 first ha.
+
